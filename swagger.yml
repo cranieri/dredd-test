@@ -1,0 +1,379 @@
+---
+swagger: "2.0"
+info:
+  description: "Generates reports, collects data"
+  version: "1.0.0"
+  title: "Reporting Engine"
+host: "localhost:38050"
+basePath: "/reporting"
+schemes:
+- "http"
+produces:
+- "application/json"
+paths:
+  # /reports/profit_and_loss:
+  #   get:
+  #     tags:
+  #     - "Reports"
+  #     summary: "Returns profit and loss report"
+  #     description: "Returns profit and loss report.\n"
+  #     parameters:
+  #     - name: "date_by"
+  #       in: "query"
+  #       description: "one of value_date or trade_date"
+  #       required: true
+  #       type: "string"
+  #       format: "string"
+  #       default: "2017-03-25"
+  #     - name: "start_date"
+  #       in: "query"
+  #       description: "search for trades with date_by from"
+  #       required: true
+  #       type: "string"
+  #       pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+  #       format: "date"
+  #       default: "2017-03-25"
+  #     - name: "end_date"
+  #       in: "query"
+  #       description: "search for trades with date_by to"
+  #       required: true
+  #       type: "string"
+  #       pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+  #       format: "date"
+  #       default: "2017-03-25"
+  #     - name: "amount_by"
+  #       in: "query"
+  #       description: "one of client_sell_amt or client_buy_amt"
+  #       required: false
+  #       type: "string"
+  #       format: "string"
+  #       default: "10000"
+  #     - name: "minimum_amount"
+  #       in: "query"
+  #       description: "minimum amount we need to search for"
+  #       required: false
+  #       type: "number"
+  #       format: "double"
+  #       default: "100"
+  #     - name: "maximum_amount"
+  #       in: "query"
+  #       description: "maximum amount we need to search for"
+  #       required: false
+  #       type: "number"
+  #       format: "double"
+  #       default: "1000"
+  #     - name: "sell_ccy"
+  #       in: "query"
+  #       description: "currency in ISO format"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^([A-Z]){3}$"
+  #       format: "string"
+  #       default: "GBP"
+  #     - name: "buy_ccy"
+  #       in: "query"
+  #       description: "currency in ISO format"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^([A-Z]){3}$"
+  #       format: "string"
+  #       default: "USD"
+  #     - name: "market"
+  #       in: "query"
+  #       description: "real market currency pair"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^([A-Z]){6}$"
+  #       format: "string"
+  #       default: "GBPUSD"
+  #     - name: "trade_ref"
+  #       in: "query"
+  #       description: "short trade reference"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^20\\d\\d([0-1][0-9][0-3][0-9]-[A-Z]{6})$"
+  #       format: "string"
+  #       default: "1234"
+  #     - name: "provider"
+  #       in: "query"
+  #       description: "provider's name, one of all, barclays, oanda, seb"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^(all|barclays|oanda|seb)$"
+  #       format: "string"
+  #       default: "SEB"
+  #     - name: "ignore_same_currency"
+  #       in: "query"
+  #       description: "true if should ignore same currency trades"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^(true|false)$"
+  #       format: "string"
+  #     - name: "principal_identifier[contact_id]"
+  #       in: "query"
+  #       description: "your contact id"
+  #       required: true
+  #       type: "string"
+  #       default: "val"
+  #     - name: "principal_identifier[account_id]"
+  #       in: "query"
+  #       description: "your account id"
+  #       required: true
+  #       type: "string"
+  #     - name: "principal_identifier[effective_contact_id]"
+  #       in: "query"
+  #       description: "your contact id"
+  #       required: true
+  #       type: "string"
+  #     - name: "principal_identifier[effective_account_id]"
+  #       in: "query"
+  #       description: "your account id"
+  #       required: true
+  #       type: "string"
+  #       default: "123"
+  #     responses:
+  #       200:
+  #         description: "profit and loss report"
+  #         schema:
+  #           $ref: "#/definitions/inline_response_200"
+  #       500:
+  #         description: "Service unavailable"
+  #         schema:
+  #           $ref: "#/definitions/Error"
+  /reports/end_of_day_balances:
+    get:
+      tags:
+      - "Reports"
+      summary: "Returns EOB report"
+      description: "Returns profit and loss report.\n"
+      parameters:
+      - name: "start_date"
+        in: "query"
+        description: "search for trades with date_by from"
+        required: true
+        type: "string"
+        pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        format: "date"
+        default: "2017-03-23"
+      - name: "end_date"
+        in: "query"
+        description: "search for trades with date_by to"
+        required: true
+        type: "string"
+        pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+        format: "date"
+        default: "2017-03-23"
+      - name: "order"
+        in: "query"
+        required: false
+        type: "string"
+        pattern: "^(account_name|date)$"
+        format: "string"
+        default: "1234"
+      - name: "account_ref"
+        in: "query"
+        required: false
+        type: "string"
+        pattern: "^[0-9]{6}-[0-9]{5}$"
+        format: "string"
+      - name: "account_id"
+        in: "query"
+        required: false
+        type: "string"
+        format: "string"
+      - name: "currency"
+        in: "query"
+        description: "currency in ISO format"
+        required: false
+        type: "string"
+        pattern: "^([A-Z]){3}$"
+        format: "string"
+      - name: "principal_identifier[contact_id]"
+        in: "query"
+        description: "your contact id"
+        required: true
+        type: "string"
+        default: "123"
+      - name: "principal_identifier[account_id]"
+        in: "query"
+        description: "your account id"
+        required: true
+        type: "string"
+        default: "123"
+      - name: "principal_identifier[effective_contact_id]"
+        in: "query"
+        description: "your contact id"
+        required: true
+        type: "string"
+        default: "123"
+      - name: "principal_identifier[effective_account_id]"
+        in: "query"
+        description: "your account id"
+        required: true
+        type: "string"
+        default: "1234"
+      responses:
+        200:
+          description: "end of day balances report"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        500:
+          description: "Service unavailable"
+          schema:
+            $ref: "#/definitions/Error"
+  # /reports/end_of_day_balances_csv:
+  #   get:
+  #     tags:
+  #     - "Reports"
+  #     summary: "Returns EOB report"
+  #     description: "Returns profit and loss report.\n"
+  #     parameters:
+  #     - name: "start_date"
+  #       in: "query"
+  #       description: "search for trades with date_by from"
+  #       required: true
+  #       type: "string"
+  #       pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+  #       format: "date"
+  #       default: "2017-03-23"
+  #     - name: "end_date"
+  #       in: "query"
+  #       description: "search for trades with date_by to"
+  #       required: true
+  #       type: "string"
+  #       pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+  #       format: "date"
+  #       default: "2017-03-23"
+  #     - name: "order"
+  #       in: "query"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^(account_name|date)$"
+  #       format: "string"
+  #       default: "20123"
+  #     - name: "account_ref"
+  #       in: "query"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^[0-9]{6}-[0-9]{5}$"
+  #       format: "string"
+  #       default: "201723"
+  #     - name: "account_id"
+  #       in: "query"
+  #       required: false
+  #       type: "string"
+  #       format: "string"
+  #       default: "201723"
+  #     - name: "currency"
+  #       in: "query"
+  #       description: "currency in ISO format"
+  #       required: false
+  #       type: "string"
+  #       pattern: "^([A-Z]){3}$"
+  #       format: "string"
+  #       default: "GBP"
+  #     - in: "body"
+  #       name: "principal_identifier"
+  #       required: true
+  #       schema:
+  #         $ref: "#/definitions/principalIdentifier"
+  #     responses:
+  #       200:
+  #         description: "end of day balances report"
+  #         schema:
+  #           $ref: "#/definitions/inline_response_200"
+  #       500:
+  #         description: "Service unavailable"
+  #         schema:
+  #           $ref: "#/definitions/Error"
+definitions:
+  Error:
+    type: "object"
+    properties:
+      status:
+        type: "string"
+      data:
+        type: "string"
+  inline_response_200:
+    properties:
+      status:
+        type: "string"
+      data:
+        type: "string"
+        format: "csv"
+  inline_response_200_1:
+    properties:
+      status:
+        type: "string"
+      data:
+        type: "string"
+        format: "string"
+  principalIdentifier:
+    type: "object"
+    properties:
+      effective_contact_id:
+        type: "string"
+        description: "contact id."
+      effective_account_id:
+        type: "string"
+        description: "account id."
+        default: "1234"
+      contact_id:
+        type: "string"
+        description: "contact id"
+      account_id:
+        type: "string"
+        description: "account id"
+    description: "principal identifier for contact"
+parameters:
+  fromDate:
+    name: "from_date"
+    in: "query"
+    required: false
+    type: "string"
+    pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    format: "date"
+  startDate:
+    name: "start_date"
+    in: "query"
+    description: "search for trades with date_by from"
+    required: true
+    type: "string"
+    pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    format: "date"
+  endDate:
+    name: "end_date"
+    in: "query"
+    description: "search for trades with date_by to"
+    required: true
+    type: "string"
+    pattern: "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$"
+    format: "date"
+  orderBy:
+    name: "order"
+    in: "query"
+    required: false
+    type: "string"
+    pattern: "^(account_name|date)$"
+    format: "string"
+  accountRef:
+    name: "account_ref"
+    in: "query"
+    required: false
+    type: "string"
+    pattern: "^[0-9]{6}-[0-9]{5}$"
+    format: "string"
+  accountID:
+    name: "account_id"
+    in: "query"
+    required: false
+    type: "string"
+    format: "string"
+  currencyIso:
+    name: "currency"
+    in: "query"
+    description: "currency in ISO format"
+    required: false
+    type: "string"
+    pattern: "^([A-Z]){3}$"
+    format: "string"

@@ -1,0 +1,117 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Reporting Engine
+  description: Generates reports, collects data
+  version: "1.0.0"
+# the domain of the service
+host: localhost:38050
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+basePath: /reporting
+produces:
+  - application/json
+paths:
+  /profit_and_loss:
+    get:
+      summary: Returns profit and loss report
+      description: |
+        Returns profit and loss report.
+      parameters:
+        - name: principal_identifier
+          in: body
+          description: Principal identifier.
+          required: false
+          schema:
+            items:
+              $ref: '#/definitions/principal_identifier'
+      tags:
+        - Estimates
+      responses:
+        200:
+          description: profit and loss report
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/profit_and_loss'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /end_of_day_balances:
+    get:
+      summary: Returns EOB report
+      description: |
+        Returns profit and loss report.
+      parameters:
+        - name: date
+          in: query
+          required: false
+          type: string
+          format: date
+      tags:
+        - Estimates
+      responses:
+        200:
+          description: end of balances
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/profit_and_loss'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  principal_identifier:
+    type: string
+    properties:
+      effective_contact_id:
+        type: string
+        description: contact id.
+      effective_account_id:
+        type: string
+        description: account id.
+      contact_id:
+        type: string
+        description: contact id
+      account_id:
+        type: string
+        description: account id
+  profit_and_loss:
+    type: object
+    properties:
+      eod_lected:
+        type: string
+        description: bla bla
+      type:
+        type: string
+        description: bla bla
+      client_id:
+        type: string
+        description: bla bla
+      cc_trade_id:
+        type: string
+        description: bla bla
+      trade_date:
+        type: string
+        description: bla bla
+      original_value_date:
+        type: string
+        description: bla bla
+      final_value_date:
+        type: string
+        description: bla bla
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
